@@ -1,0 +1,66 @@
+---
+
+- hosts: "{{ hosts }}"
+
+  vars_prompt:
+    - name: Duration
+      prompt: "what is the duration of root access? "     #Must be an integer
+      private: false
+
+    - name: Units
+      prompt: "what is the duration units of root access? "   #Must be strings
+      private: false
+
+    - name: ad_group
+      prompt: "Group to give root access "
+      private: false
+
+    - name: CMND_ALIAS
+      prompt: "Specify Cmnd_Alias "
+      private: false
+
+    - name: script_name
+      prompt: "Specify script_name "
+      private: false
+
+  tasks:
+    - name: install the at package
+      yum:
+        name: at
+        state: present
+      notify: "start atd service"
+
+    - name: copy temp_root_access file to remote server
+      copy:
+        src: /usr/local/bin/saprootAccess
+        dest: /usr/local/bin
+        mode: 0700
+
+    - name: template the given document to the remote host
+      template:
+        src: sudo-sap_root_access.j2
+        dest: /etc/sudoers.d/sudo-sap_root_access
+        validate: /usr/sbin/visudo -cf %s
+
+    - name: run at job command to remove temp_root_access script
+      at:
+        command: rm -rf {{ item }} >/dev/null
+        count: "{{ Duration }}"
+        units: "{{ Units }}"
+        state: present
+      with_items:
+        - /usr/local/bin/saprootAccess
+        - /etc/sudoers.d/sudo-sap_root_access
+
+  handlers:
+    - name: enable atd service
+      service:
+        name: atd
+        enabled: yes
+      listen: "start atd service"
+
+    - name: start the service
+      service:
+        name: atd
+        state: started
+      listen: "start atd service"

@@ -1,10 +1,5 @@
 ---
 - hosts: "{{ inventory }}"
   
-#  vars_prompt:
-#    - name: package
-#      prompt: "Package to install"
-#      private: false
-
   roles:
     - install

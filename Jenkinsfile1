@@ -1,9 +1,14 @@
 pipeline{
     agent any
     stages{
-        stage('Execute playbook'){
+        stage('Execute install role'){
             steps{
                 ansiblePlaybook credentialsId: 'ansible-key', disableHostKeyChecking: true, extras: '-e inventory=all', installation: 'ansible', inventory: '/etc/ansible/ansible-roles/hosts', playbook: '/etc/ansible/ansible-roles/install.yml'
+            }
+        }
+        stage('Execute Temp_access role'){
+            steps{
+                ansiblePlaybook credentialsId: 'ansible-key', disableHostKeyChecking: true, extras: '-e inventory=all', installation: 'ansible', inventory: '/etc/ansible/ansible-roles/hosts', playbook: '/etc/ansible/ansible-roles/temp2.yml'
             }
         }
     }

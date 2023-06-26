@@ -1,0 +1,28 @@
+---
+- name: install the at package
+  yum:
+    name: at
+    state: present
+  notify: "start atd service"
+
+- name: copy temp_root_access file to remote server
+  copy:
+    src: saprootAccess
+    dest: /usr/local/bin
+    mode: 0700
+
+- name: template the given document to the remote host
+  template:
+    src: sudo-sap_root_access.j2
+    dest: /etc/sudoers.d/sudo-sap_root_access
+    validate: /usr/sbin/visudo -cf %s
+
+- name: run at job command to remove temp_root_access script
+  at:
+    command: rm -rf {{ item }} >/dev/null
+    count: "{{ Duration }}"
+    units: "{{ Units }}"
+    state: present
+  with_items:
+    - /usr/local/bin/saprootAccess
+    - /etc/sudoers.d/sudo-sap_root_access

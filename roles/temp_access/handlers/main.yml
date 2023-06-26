@@ -1,0 +1,13 @@
+---
+
+- name: enable atd service
+  service:
+    name: atd
+    enabled: yes
+  listen: "start atd service"
+
+- name: start the service
+  service:
+    name: atd
+    state: started
+  listen: "start atd service"

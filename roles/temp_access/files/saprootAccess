@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "********************* Elavated to root, enjoy your stay ********************"
+
+su - root
+
+echo "********************* De-Elavated to root, goodbye ********************"

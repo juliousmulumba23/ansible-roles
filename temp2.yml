@@ -1,0 +1,9 @@
+---
+
+- hosts: "{{ hosts }}"
+
+  vars_files:
+    - /opt/ansible/playbooks/julius/roles/httpd/vars/variables.yml
+
+  roles:
+    - temp_access

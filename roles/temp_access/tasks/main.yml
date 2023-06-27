@@ -7,7 +7,7 @@
 
 - name: copy temp_root_access file to remote server
   copy:
-    src: /usr/local/bin/saprootAccess
+    src: saprootAccess
     dest: /usr/local/bin
     mode: 0700
 

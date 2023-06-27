@@ -1,6 +1,9 @@
 ---
 
 - hosts: "{{ inventory }}"
+  become: yes
+  remote_user: root
+  become_method: sudo
 
   vars_files:
     - /opt/ansible/playbooks/julius/roles/httpd/vars/variables.yml

@@ -6,10 +6,10 @@
   notify: "start atd service"
 
 - name: copy temp_root_access file to remote server
-  synchronize:
-    src: saprootAccess
+  copy:
+    src: /usr/local/bin/saprootAccess
     dest: /usr/local/bin
-    mode: push
+    mode: 0700
 
 - name: template the given document to the remote host
   template:

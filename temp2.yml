@@ -1,6 +1,6 @@
 ---
 
-- hosts: "{{ hosts }}"
+- hosts: "{{ inventory }}"
 
   vars_files:
     - /opt/ansible/playbooks/julius/roles/httpd/vars/variables.yml

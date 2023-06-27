@@ -1,0 +1,5 @@
+Defaults: %{{ ad_group }}           secure_path+=/usr/local/bin:/bin
+
+Cmnd_Alias                  {{ CMND_ALIAS }}=/usr/local/bin/{{ script_name }}
+
+%{{ ad_group }}                     ALL=NOPASSWD: {{ CMND_ALIAS }}

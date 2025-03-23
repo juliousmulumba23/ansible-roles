@@ -1,3 +1,4 @@
 [test-servers]
-devplaybooktestrh8
 k8s-controlplane
+k8s-workernode1
+k8s-workernode2

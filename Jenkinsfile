@@ -1,0 +1,15 @@
+pipeline{
+    agent any
+    stages{
+        stage('Execute install role'){
+            steps{
+                ansiblePlaybook become: true, credentialsId: 'ansible_key', disableHostKeyChecking: true, extras: '-e inventory=all', installation: 'Ansible', inventory: '/opt/devOps/ansible-roles/hosts', playbook: '/opt/devOps/ansible-roles/install.yml'
+            }
+        }
+        stage('Execute Temp_access role'){
+            steps{
+                ansiblePlaybook become: true, credentialsId: 'ansible_key', disableHostKeyChecking: true, extras: '-e inventory=all', installation: 'Ansible', inventory: '/opt/devOps/ansible-roles/hosts', playbook: '/opt/devOps/ansible-roles/temp2.yml'
+            }
+        }
+    }
+}

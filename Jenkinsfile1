@@ -3,12 +3,12 @@ pipeline{
     stages{
         stage('Execute install role'){
             steps{
-                ansiblePlaybook credentialsId: 'ansible-key', disableHostKeyChecking: true, extras: '-e inventory=all', installation: 'ansible', inventory: '/opt/devOps/ansible-roles/hosts', playbook:/opt/devOps/ansible-roles/install.yml'
+                ansiblePlaybook credentialsId: 'pyTorch', disableHostKeyChecking: true, extras: '-e inventory=all', installation: 'ansible', inventory: '/opt/devOps/ansible-roles/hosts', playbook:/opt/devOps/ansible-roles/install.yml'
             }
         }
         stage('Execute Temp_access role'){
             steps{
-                ansiblePlaybook credentialsId: 'ansible-key', disableHostKeyChecking: true, extras: '-e inventory=all', installation: 'ansible', inventory: '/opt/devOps/ansible-roles/hosts', playbook: '/opt/devOps/ansible-roles/temp2.yml'
+                ansiblePlaybook credentialsId: 'pyTorch', disableHostKeyChecking: true, extras: '-e inventory=all', installation: 'ansible', inventory: '/opt/devOps/ansible-roles/hosts', playbook: '/opt/devOps/ansible-roles/temp2.yml'
             }
         }
     }
